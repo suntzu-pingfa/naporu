@@ -106,11 +106,11 @@ class RubotoActivity
       setup_content do
         linear_layout :orientation => LinearLayout::VERTICAL do
           linear_layout do
-            @etl = edit_text(:text => "Takashi says", :min_ems => 10, :max_ems => 10)
+            @input = edit_text(:text => "Takashi says", :min_ems => 10, :max_ems => 10)
             button :text => "Input"
           end
         end
-          text_view :text => "#{input}", 
+          text_view :text => "#{@input}", 
             :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
       end
     end
