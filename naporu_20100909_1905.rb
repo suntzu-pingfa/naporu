@@ -1,4 +1,13 @@
- linear_layout :orientation => LinearLayout::VERTICAL do
+  #
+  # Custom Dialog
+  #
+
+  def self.custom_title(context)
+    context.start_ruboto_activity "$custom_title" do
+      requestWindowFeature Window::FEATURE_CUSTOM_TITLE
+
+      setup_content do
+        linear_layout :orientation => LinearLayout::VERTICAL do
           linear_layout do
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
             button :text => "Change left"
@@ -31,3 +40,5 @@
       handle_click do |view|
         view.getText == "Change left" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
       end
+    end
+  end
