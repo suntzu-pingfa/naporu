@@ -110,7 +110,7 @@ class RubotoActivity
             button :text => "Input"
           end
         end
-          text_view :text => "#{@input}", 
+          text_view :text => "#{@input.getText}", 
             :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
       end
     end
