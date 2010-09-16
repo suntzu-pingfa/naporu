@@ -33,6 +33,12 @@ java_import "android.app.DatePickerDialog"
 java_import "android.graphics.Typeface"
 java_import "android.content.res.ColorStateList"
 
+module Kernel
+  def print
+    p "test"
+  end
+end
+
 class RubotoActivity
   @@lists = {
 #    :main      => %w(App Content Graphics Media OS Text Views),
@@ -98,12 +104,20 @@ class RubotoActivity
       setTitle "App/Activity/Hello World"
 
       setup_content do
-          text_view :text => "Hello, World!", 
+        linear_layout :orientation => LinearLayout::VERTICAL do
+          linear_layout do
+            @etl = edit_text(:text => "Takashi says", :min_ems => 10, :max_ems => 10)
+            button :text => "Input"
+          end
+        end
+          text_view :text => "#{input}", 
             :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
       end
     end
   end
 end
+
+
 
 #######################################################
 #
