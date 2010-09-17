@@ -19,29 +19,18 @@ java_import "android.view.WindowManager"
 java_import "android.view.Gravity"
 java_import "android.content.Context"
 java_import "android.util.AttributeSet"
-java_import "android.graphics.drawable.GradientDrawable"
-java_import "android.graphics.Color"
-java_import "android.graphics.Paint"
-java_import "android.graphics.RectF"
-java_import "android.graphics.Canvas"
-java_import "android.graphics.Bitmap"
-java_import "android.graphics.Path"
-java_import "android.hardware.SensorManager"
-java_import "android.hardware.Sensor"
-java_import "android.app.TimePickerDialog"
-java_import "android.app.DatePickerDialog"
-java_import "android.graphics.Typeface"
 java_import "android.content.res.ColorStateList"
 
 class RubotoActivity
   @@lists = {
 #    :main      => %w(App Content Graphics Media OS Text Views),
-    :main       => %w(App),
 #    "App"       => ["Activity", "Alarm", "Dialog" "Intents", 
 #                     "Launcher Shortcuts", "Menus", "Notification", 
 #                     "Preferences", "Search", "Service", "Voice Recognition"],
-    "App"       => ["Activity"],
-    "Activity"  => ["Naporoid"],
+    #:main       => %w(App),
+    :main       => ["Naporoid"],
+    #"App"       => ["Activity"],
+    #"Activity"  => ["Naporoid"],
            
   }
 
