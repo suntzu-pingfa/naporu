@@ -103,7 +103,7 @@ class RubotoActivity
 # Custom Dialog
 #
 
-  def self.custom_title(context)
+  def self.hello_world(context)
     context.start_ruboto_activity "$custom_title" do
       requestWindowFeature Window::FEATURE_CUSTOM_TITLE
 
