@@ -33,12 +33,6 @@ java_import "android.app.DatePickerDialog"
 java_import "android.graphics.Typeface"
 java_import "android.content.res.ColorStateList"
 
-module Kernel
-  def print
-    p "test"
-  end
-end
-
 class RubotoActivity
   @@lists = {
 #    :main      => %w(App Content Graphics Media OS Text Views),
@@ -47,7 +41,7 @@ class RubotoActivity
 #                     "Launcher Shortcuts", "Menus", "Notification", 
 #                     "Preferences", "Search", "Service", "Voice Recognition"],
     "App"       => ["Activity"],
-    "Activity"  => ["Hello World"],
+    "Activity"  => ["Naporoid"],
            
   }
 
@@ -56,19 +50,19 @@ class RubotoActivity
       RubotoActivity.launch_list context, "$sl_#{title.downcase.gsub(' ', '_')}", "Api Demos", title
     else
       case title
-      when "Custom Dialog"         : custom_dialog(context)
-      when "Custom Title"          : custom_title(context)
-      when "Forwarding"            : forwarding(context)
-      when "Hello World"           : hello_world(context)
-      when "Persistent State"      : persistent_state(context)
-      when "Save & Restore State"  : save_and_restore_state(context)
-      when "Arcs"                  : arcs(context)
-      when "Morse Code"            : morse_code(context)
-      when "Sensors"               : sensors(context)
-      when "Buttons"               : buttons(context)
-      when "Chronometer"           : chronometer_demo(context)
-      when "1. Dialog"             : date_dialog(context)
-      when "2. Inline"             : date_inline(context)
+      when "Naporoid"              : hello_world(context)
+      #when "Custom Dialog"         : custom_dialog(context)
+      #when "Custom Title"          : custom_title(context)
+      #when "Forwarding"            : forwarding(context)
+      #when "Persistent State"      : persistent_state(context)
+      #when "Save & Restore State"  : save_and_restore_state(context)
+      #when "Arcs"                  : arcs(context)
+      #when "Morse Code"            : morse_code(context)
+      #when "Sensors"               : sensors(context)
+      #when "Buttons"               : buttons(context)
+      #when "Chronometer"           : chronometer_demo(context)
+      #when "1. Dialog"             : date_dialog(context)
+      #when "2. Inline"             : date_inline(context)
       else
         context.toast "Not Implemented Yet"
       end
@@ -96,14 +90,10 @@ class RubotoActivity
   #
 
   #
-  # Hello, World
+  # Naporoid
   #
 
-#
-# Custom Dialog
-#
-
-  def self.hello_world(context)
+  def self.naporoid(context)
     context.start_ruboto_activity "$custom_title" do
       requestWindowFeature Window::FEATURE_CUSTOM_TITLE
 
@@ -143,4 +133,4 @@ end
 #
 
 RubotoActivity.launch_list $activity, "$main_list", "Api Demos", :main,
-  "This is a Ruboto demo that attempts to duplicate the standard Android API Demo using Ruboto. It is in the early stages (more samples will be completed in the future)."
+  "Napoleon implemented by Ruby on Andorid."
