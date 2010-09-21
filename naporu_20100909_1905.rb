@@ -84,6 +84,8 @@ class RubotoActivity
             @etr = edit_text(:text => "Right is always right", :min_ems => 10, :max_ems => 10)
             button :text => "Change right"
           end
+  		    text_view :text => "Hello, World!", 
+	        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
         end
       end
 
@@ -109,10 +111,6 @@ class RubotoActivity
         view.getText == "Change left" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
       end
       
-			setup_content do
-		    text_view :text => "Hello, World!", 
-	      :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
-			end
     end
   end
 end
