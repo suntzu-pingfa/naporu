@@ -78,7 +78,11 @@ class RubotoActivity
         linear_layout :orientation => LinearLayout::VERTICAL do
           linear_layout do
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
-            button :text => "Click"
+            button :text => "Change left"
+          end
+          linear_layout do
+            @etr = edit_text(:text => "Right is always right", :min_ems => 10, :max_ems => 10)
+            button :text => "Change right"
           end
         end
       end
@@ -88,18 +92,21 @@ class RubotoActivity
                                 Ruboto::R::layout::empty_relative_layout)
 
         @rl = findViewById(Ruboto::Id::empty_relative_layout)
-        @tvl = text_view :text => "", 
+        @tvl = text_view :text => "Left is best", 
                          :text_color => ColorStateList.valueOf(0xFFFFFFFF),
                          :typeface => [Typeface::DEFAULT, Typeface::BOLD]
         @rl.addView @tvl
         @tvl.getLayoutParams.addRule RelativeLayout::ALIGN_PARENT_LEFT
-        text_view :text => "#{@tvl.getText}", 
-            :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
-        
+
+        @tvr = text_view :text => "Right is always right", 
+                         :text_color => ColorStateList.valueOf(0xFFFFFFFF),
+                         :typeface => [Typeface::DEFAULT, Typeface::BOLD]
+        @rl.addView @tvr
+        @tvr.getLayoutParams.addRule RelativeLayout::ALIGN_PARENT_RIGHT
       end
 
       handle_click do |view|
-        view.getText == "Click" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
+        view.getText == "Change left" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
       end
     end
   end
