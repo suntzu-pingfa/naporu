@@ -39,7 +39,7 @@ class RubotoActivity
       RubotoActivity.launch_list context, "$sl_#{title.downcase.gsub(' ', '_')}", "Api Demos", title
     else
       case title
-      when "Naporoid"              : hello_world(context)
+      when "Naporoid"              : naporoid(context)
       else
         context.toast "Not Implemented Yet"
       end
