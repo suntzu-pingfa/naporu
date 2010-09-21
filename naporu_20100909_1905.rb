@@ -75,8 +75,6 @@ class RubotoActivity
       requestWindowFeature Window::FEATURE_CUSTOM_TITLE
 
       setup_content do
-        text_view :text => "#{@tvl.getText}", 
-            :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
         linear_layout :orientation => LinearLayout::VERTICAL do
           linear_layout do
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
@@ -95,6 +93,8 @@ class RubotoActivity
                          :typeface => [Typeface::DEFAULT, Typeface::BOLD]
         @rl.addView @tvl
         @tvl.getLayoutParams.addRule RelativeLayout::ALIGN_PARENT_LEFT
+        text_view :text => "#{@tvl.getText}", 
+            :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
         
       end
 
