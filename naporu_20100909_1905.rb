@@ -81,6 +81,8 @@ class RubotoActivity
             button :text => "Click"
           end
         end
+        text_view :text => "#{@etl.getText}", 
+        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
       end
 
       handle_create do
@@ -96,10 +98,10 @@ class RubotoActivity
         
       end
       
-      setup_content do
-          text_view :text => "#{@etl.getText}", 
-          :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
-      end
+#     setup_content do
+#         text_view :text => "#{@etl.getText}", 
+#         :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
+#     end
 
       handle_click do |view|
         view.getText == "Click" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
