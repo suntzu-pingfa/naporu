@@ -81,8 +81,6 @@ class RubotoActivity
             button :text => "Click"
           end
         end
-        #text_view :text => "#{@etl.getText}", 
-        #:gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
       end
 
       handle_create do
@@ -97,11 +95,6 @@ class RubotoActivity
         @tvl.getLayoutParams.addRule RelativeLayout::ALIGN_PARENT_LEFT
         
       end
-      
-#     setup_content do
-#         text_view :text => "#{@etl.getText}", 
-#         :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
-#     end
 
       handle_click do |view|
         view.getText == "Click" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
