@@ -71,7 +71,7 @@ class RubotoActivity
   #
 
   def self.naporoid(context)
-    context.start_ruboto_activity "$custom_title" do
+    context.start_ruboto_activity "$naporoid" do
       requestWindowFeature Window::FEATURE_CUSTOM_TITLE
 
       setup_content do
