@@ -80,9 +80,9 @@ class RubotoActivity
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
             button :text => "Click"
           end
-        end
         text_view :text => "#{@etl.getText}", 
           :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
+        end
       end
 
       handle_create do
