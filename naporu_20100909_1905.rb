@@ -75,9 +75,9 @@ class RubotoActivity
       requestWindowFeature Window::FEATURE_CUSTOM_TITLE
 
       setup_content do
-        linear_layout :orientation => LinearLayout::VERTICAL do
   		    text_view :text => "#{@tvl.getText}", 
 	        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
+        linear_layout :orientation => LinearLayout::VERTICAL do
           linear_layout do
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
             button :text => "Change left"
