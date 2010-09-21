@@ -2483,7 +2483,7 @@ class CoalCPU < CPUPlayer
 end
 
 def main
-  human_player_count = 0
+  human_player_count = 1
   player_count = 4
   ans = ''
   while(ans != 'n')
