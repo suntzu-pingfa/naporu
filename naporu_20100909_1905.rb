@@ -85,7 +85,8 @@ class RubotoActivity
             button :text => "Change right"
           end
     		  #text_view :text => "#{@tvl.getText}", 
-	        #:gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
+    		  text_view :text => "Naporoid", 
+	        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
         end
       end
 
