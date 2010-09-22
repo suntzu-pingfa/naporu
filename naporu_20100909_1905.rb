@@ -76,8 +76,8 @@ class RubotoActivity
 
       setup_content do
         linear_layout :orientation => LinearLayout::VERTICAL do
-    		  text_view :text => "Naporoid", 
-	        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
+    		  #text_view :text => "Naporoid", 
+	        #:gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
     		  text_view :text => "#{@etl.getText}", 
 	        :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
           linear_layout do
