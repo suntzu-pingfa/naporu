@@ -55,8 +55,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     end
   end
 
-   cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-   @tv.append "#{cards}"
+   #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
+   #@tv.append "#{cards}"
    
   #
   # Another callback method for OnClick. Buttons
