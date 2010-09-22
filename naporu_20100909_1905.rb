@@ -107,7 +107,10 @@ class RubotoActivity
 
       handle_click do |view|
         view.getText == "Change left" ? @tvl.setText(@etl.getText) : @tvr.setText(@etr.getText)
+        end
+        finish
       end
+    end
       
     end
   end
