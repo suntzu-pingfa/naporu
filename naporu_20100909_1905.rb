@@ -76,10 +76,6 @@ class RubotoActivity
 
       setup_content do
         linear_layout :orientation => LinearLayout::VERTICAL do
-    		  text_view :text => "Naporoid", 
-	         :gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
-    		  #text_view :text => "#{@etl.getText}", 
-	        #:gravity => (Gravity::CENTER_HORIZONTAL | Gravity::CENTER_VERTICAL)
           linear_layout do
             @etl = edit_text(:text => "Left is best", :min_ems => 10, :max_ems => 10)
             button :text => "Change left"
@@ -88,7 +84,6 @@ class RubotoActivity
             @etr = edit_text(:text => "Right is always right", :min_ems => 10, :max_ems => 10)
             button :text => "Change right"
           end
-    		  #text_view :text => "#{@tvl.getText}", 
         end
       end
 
