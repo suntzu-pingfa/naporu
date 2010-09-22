@@ -38,25 +38,25 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       linear_layout do
-        button :text => "[sK]"
-        button :text => "[sJ]"
-        button :text => "[s9]"
-        button :text => "[s8]"
-        button :text => "[h8]"
-        button :text => "[dA]"
-        button :text => "[d4]"
-        button :text => "[d2]"
-        button :text => "[c8]"
-        button :text => "[c6]"
-        button :text => "[c5]"
-        button :text => "[c0]"
+        button :text => "sK"
+        button :text => "sJ"
+        button :text => "s9"
+        button :text => "s8"
+        button :text => "h8"
+        button :text => "dA"
+        button :text => "d4"
+        button :text => "d2"
+        button :text => "c8"
+        button :text => "c6"
+        button :text => "c5"
+        button :text => "c0"
       end
       @tv = text_view :text => "Click buttons or menu items:"
     end
   end
 
    cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-   @tv.append cards
+   @tv.append "#{cards}"
    
   #
   # Another callback method for OnClick. Buttons
