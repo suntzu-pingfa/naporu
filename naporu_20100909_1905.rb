@@ -40,7 +40,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       linear_layout do
-        cards.each do |c|
+        $cards.each do |c|
           button :text => "#{c}"
         end
       end
