@@ -163,7 +163,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     card = "#{input_card}"
     toast "#{@cards.size}"
     @cards.delete("#{card}")
-    card = card.suit + card.number.downcase
+    card = card.suit + card.number.upcase
     toast card
     toast "#{@cards.size}"
     #@tv.append "\n#{text}"
