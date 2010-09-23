@@ -59,7 +59,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       when "dummy"
       else
         my_click(view.getText)
-        print "Oops\n"
+        napo
     end
   end
 
@@ -78,6 +78,14 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   def self.print(text)
     @tv.append "#{text}"
   end
+
+  def self.p(text)
+    @tv.append "#{text}\n"
+  end
   
+  def napo
+    print "test"
+    p "TEST"
+  end
   
 end
