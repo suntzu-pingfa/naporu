@@ -36,7 +36,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # activity.
   #
   #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-  $cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
+  @cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
   
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
@@ -69,16 +69,15 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # 
   def self.my_click(card)
     card = @et.getText
+    @cards.delete(card)
     toast card
-    #$cards.delete(text)
     #@tv.append "\n#{text}"
     my_cards =""
-    $cards.each do |c|
+    @cards.each do |c|
       my_cards += "[#{c}]"
     end
     @tv.setText "\n#{my_cards}"
     #@tv.setText "\n#{text}"
-    $cards.delete(card)
   end
 
   def self.print(text)
