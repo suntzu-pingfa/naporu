@@ -158,8 +158,9 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # need to be declared with self. This one 
   # handles some of the button and menu clicks.
   # 
-  def self.my_click(card)
-    card = @et.getText
+  def self.my_click(text)
+    input_card = @et.getText
+    card = "#{input_card}"
     toast "#{@cards.size}"
     @cards.delete("#{card}")
     card = card.suit + card.number.downcase
@@ -186,6 +187,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     print "test"
     p "TEST"
   end
+end
   
 ### Extentions for Napo ###
 
@@ -527,5 +529,4 @@ class Array
     return e_cards
   end
   
-end
 end
