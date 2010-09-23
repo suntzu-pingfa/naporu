@@ -74,12 +74,10 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @tv.append "\n#{text}"
   end
 
-  class Kernel
-    def print
-      @tv.append "#{text}"
-    end
+  def pa
+    @tv.append "#{text}"
   end
   
-  print "Oops\n"
+  pa "Oops\n"
   
 end
