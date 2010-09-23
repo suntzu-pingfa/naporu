@@ -77,11 +77,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   end
 
   def self.print(text)
-    @tv.append "#{text}"
+    @tv.setText "#{text}"
   end
 
   def self.p(text)
-    @tv.append "#{text}\n"
+    @tv.setText "#{text}\n"
   end
   
   def napo
