@@ -59,7 +59,6 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       when "dummy"
       else
         my_click(view.getText)
-        napo
     end
   end
 
@@ -73,6 +72,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     toast text
     #$cards.delete(text)
     @tv.append "\n#{text}"
+    napo
   end
 
   def self.print(text)
