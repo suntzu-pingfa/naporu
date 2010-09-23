@@ -74,10 +74,10 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @tv.append "\n#{text}"
   end
 
-  def pa(text)
+  def self.print(text)
     @tv.append "#{text}"
   end
   
-  pa "Oops\n"
+  print "Oops\n"
   
 end
