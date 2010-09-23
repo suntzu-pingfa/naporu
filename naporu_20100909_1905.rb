@@ -59,6 +59,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       when "dummy"
       else
         my_click(view.getText)
+        print "Oops\n"
     end
   end
 
@@ -78,6 +79,5 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @tv.append "#{text}"
   end
   
-  print "Oops\n"
   
 end
