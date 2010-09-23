@@ -72,7 +72,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     toast text
     #$cards.delete(text)
     #@tv.append "\n#{text}"
-    @tv.append "\n#{text}"
+    @tv.setText "\n#{text}"
   end
 
   def self.print(text)
