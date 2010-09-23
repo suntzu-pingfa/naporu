@@ -36,7 +36,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # activity.
   #
   #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-  cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
+  $cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       linear_layout do
@@ -69,9 +69,9 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # handles some of the button and menu clicks.
   # 
   def self.my_click(text)
-    cards.delete(text)
     toast text
     @tv.append "\n#{text}"
+    $cards.delete(text)
   end
   
 end
