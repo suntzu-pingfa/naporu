@@ -69,10 +69,10 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # 
   def self.my_click(card)
     card = @et.getText
-    toast @cards.size
+    toast "#{@cards.size}"
     @cards.delete(card)
     toast card
-    toast @cards.size
+    toast "#{@cards.size}"
     #@tv.append "\n#{text}"
     my_cards =""
     @cards.each do |c|
