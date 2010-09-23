@@ -71,7 +71,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     text = @et.getText
     toast text
     #$cards.delete(text)
-    @tv.append "\n#{text}"
+    #@tv.append "\n#{text}"
+    @tv.setText "\n#{text}"
     napo
   end
 
