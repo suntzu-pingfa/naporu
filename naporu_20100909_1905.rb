@@ -73,7 +73,6 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     #$cards.delete(text)
     #@tv.append "\n#{text}"
     @tv.append "\n#{text}"
-    napo
   end
 
   def self.print(text)
