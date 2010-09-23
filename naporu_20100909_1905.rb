@@ -35,17 +35,19 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # code is executed in the context of the 
   # activity.
   #
+  cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       @tv = text_view :text => "Click buttons or menu items:"
       linear_layout do
         @et = edit_text
-        button :text => "click"
+        @cards.each do |c|
+          button :text => "#{c}"
+        end
       end
     end
   end
 
-   #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
    #@tv.append "#{cards}"
    
   #
