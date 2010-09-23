@@ -74,7 +74,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @tv.append "\n#{text}"
   end
 
-  def print(text)
+  def Kernel.print(text)
     @tv.append "#{text}"
   end
   
