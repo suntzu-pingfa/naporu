@@ -42,7 +42,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       linear_layout do
         @et = edit_text
-        button :text => "Click", :width => :wrap_content
+        button :text => "Play", :width => :wrap_content
       end
       @tv = text_view :text => ""
     end
@@ -67,12 +67,19 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # need to be declared with self. This one 
   # handles some of the button and menu clicks.
   # 
-  def self.my_click(text)
-    text = @et.getText
-    toast text
+  def self.my_click(card)
+    card = @et.getText
+    toast card
     #$cards.delete(text)
     #@tv.append "\n#{text}"
-    @tv.setText "\n#{text}"
+    my_cards =""
+    $cards.each do |c|
+      my_cards += "[#{c}]"
+    end
+    end
+    @tv.setText "\n#{my_cards}"
+    #@tv.setText "\n#{text}"
+    $cards.delete(card)
   end
 
   def self.print(text)
