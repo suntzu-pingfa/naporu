@@ -187,7 +187,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     p "TEST"
   end
   
-end
+### Extentions for Napo ###
 
 class String
   # Defining class Card has more overheads so that choose extending String class
@@ -527,4 +527,5 @@ class Array
     return e_cards
   end
   
+end
 end
