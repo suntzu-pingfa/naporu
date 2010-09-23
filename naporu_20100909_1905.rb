@@ -39,8 +39,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
-      cards.each do |c|
-        linear_layout do
+      linear_layout do
+        cards.each do |c|
           button :text => "#{c}"
         end
       end
