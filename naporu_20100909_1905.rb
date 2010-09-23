@@ -76,7 +76,6 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     $cards.each do |c|
       my_cards += "[#{c}]"
     end
-    end
     @tv.setText "\n#{my_cards}"
     #@tv.setText "\n#{text}"
     $cards.delete(card)
