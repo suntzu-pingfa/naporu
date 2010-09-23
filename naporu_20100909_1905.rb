@@ -69,6 +69,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # handles some of the button and menu clicks.
   # 
   def self.my_click(text)
+    cards.delete(text)
     toast text
     @tv.append "\n#{text}"
   end
