@@ -41,10 +41,9 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
       linear_layout do
         $cards.each do |c|
-          button :text => "#{c}"
+          button :text => "#{c}", :width => :wrap_content
         end
       end
-      @tv = text_view :text => "Click buttons or menu items:"
       #@et = edit_text
     end
   end
