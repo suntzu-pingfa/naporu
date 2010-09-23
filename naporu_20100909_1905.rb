@@ -40,11 +40,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
-        @tv = text_view :text => ""
-    end
-    linear_layout do
-      @et = edit_text
-      button :text => "Click", :width => :wrap_content
+      linear_layout do
+        @et = edit_text
+        button :text => "Click", :width => :wrap_content
+      end
+      @tv = text_view :text => ""
     end
   end
 
