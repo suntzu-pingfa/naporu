@@ -171,16 +171,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @cards.each do |c|
       my_cards += "[#{c}]"
     end
-    @tv.setText "\n#{my_cards}"
-    #@tv.setText "\n#{text}"
-  end
-
-  def self.print(text)
-    @tv.setText "#{text}"
-  end
-
-  def self.p(text)
-    @tv.setText "#{text}\n"
+    #@tv.setText "\n#{my_cards}"
+    print "\n#{my_cards}"
   end
   
   def napo
@@ -191,6 +183,17 @@ end
   
 ### Extentions for Napo ###
 
+module Kernel
+  ##
+  def print(text)
+    @tv.setText "#{text}"
+  end
+  
+  def p(text)
+    @tv.setText "#{text}\n"
+  end
+end
+  
 class String
   # Defining class Card has more overheads so that choose extending String class
   def suit
