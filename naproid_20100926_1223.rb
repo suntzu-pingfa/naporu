@@ -81,7 +81,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @cards.each do |c|
       my_cards += "[#{c}]"
     end
-    napo
+    naporu
   end
   
   def napo
@@ -761,7 +761,7 @@ class Table
         print_s "#{p_index + 1}: "
         
         if this_card == '' || this_card == nil
-          p @players[p_index].cards
+          p_s @players[p_index].cards
         elsif this_card.suit == @first_suit || i == 1 
           print_s "#{this_card}"
         elsif this_card == 'Jo'
