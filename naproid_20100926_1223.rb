@@ -1,7 +1,7 @@
 #######################################################
 #
-# demo-ruboto.rb (by Scott Moyer)
- 
+# demo-ruboto.rb (by Takashi Fujiwara)
+#
 # A simple look at how to generate and 
 # use a RubotoActivity.
 #
@@ -82,12 +82,36 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       my_cards += "[#{c}]"
     end
     naporu
+    napo
+    toast "End"
   end
   
   def napo
     print_s "test"
     p_s "TEST"
   end
+  
+  def naporu
+    human_player_count = 0
+    player_count = 4
+    ans = 'n'
+    while(ans != 'n')
+      t = Table.new(human_player_count, player_count)
+      t.shuffle
+      t.first_deal
+      t.real_declaration
+      t.election
+      t.assign_lieut
+      t.players.each do |p|
+        p.exchange(t) if p.role == 'napoleon'
+        t.winner_id = p.id if p.role == 'napoleon'
+      end
+      catch(:game_over) do
+        t.play
+      end
+    end  
+  end 
+  
 end
   
 ### Extentions for Napo ###
@@ -2576,25 +2600,4 @@ class CoalCPU < CPUPlayer
     return this_card
   end
   
-end
-
-def naporu
-  human_player_count = 0
-  player_count = 4
-  ans = 'n'
-  while(ans != 'n')
-    t = Table.new(human_player_count, player_count)
-    t.shuffle
-    t.first_deal
-    t.real_declaration
-    t.election
-    t.assign_lieut
-    t.players.each do |p|
-      p.exchange(t) if p.role == 'napoleon'
-      t.winner_id = p.id if p.role == 'napoleon'
-    end
-    catch(:game_over) do
-      t.play
-    end
-  end  
 end
