@@ -1,7 +1,7 @@
 #######################################################
 #
-# demo-ruboto.rb (by Scott Moyer)
- 
+# demo-ruboto.rb (by Takashi Fujiwara)
+#
 # A simple look at how to generate and 
 # use a RubotoActivity.
 #
@@ -82,6 +82,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       my_cards += "[#{c}]"
     end
     naporu
+    napo
+    toast "End"
   end
   
   def napo
