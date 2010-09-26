@@ -3241,18 +3241,5 @@ def naporu
     catch(:game_over) do
       t.play
     end
-    #while (ans != 'n')
-      #print "\nContinue?[y/n]\n"
-      #ans = STDIN.gets.chomp!
-      #ans.downcase!
-      #case ans
-      #when 'y'
-        #break
-      #when 'n'
-        #break
-      #else
-        #redo
-      #end
-    #end
   end  
 end
