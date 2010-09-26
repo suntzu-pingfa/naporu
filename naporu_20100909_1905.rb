@@ -179,8 +179,8 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   end
   
   def napo
-    print "test"
-    p "TEST"
+    print_s "test"
+    p_s "TEST"
     draw
   end
 end
