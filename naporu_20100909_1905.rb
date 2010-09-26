@@ -7,6 +7,7 @@
 #
 #######################################################
 
+require "pp"
 require "ruboto.rb"
 confirm_ruboto_version(4)
 
@@ -89,6 +90,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   def napo
     print_s "test"
     p_s "TEST"
+    human_player_count = 0
+    player_count = 4
+    t = Table.new(human_player_count, player_count)
+    t.shuffle
+    p_s t.pretty_inspect
     draw
   end
   
