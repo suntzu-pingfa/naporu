@@ -81,7 +81,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @cards.each do |c|
       my_cards += "[#{c}]"
     end
-    naporu
+    #naporu
     napo
     toast "End"
   end
@@ -89,6 +89,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   def napo
     print_s "test"
     p_s "TEST"
+    draw
   end
   
   def naporu
