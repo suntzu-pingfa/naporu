@@ -1,98 +1,7 @@
 #######################################################
 #
 # demo-ruboto.rb (by Scott Moyer)
-# 
-# A simple look at how to generate and 
-# use a RubotoActivity.
-#
-#######################################################
-
-require "ruboto.rb"
-confirm_ruboto_version(4)
-
-#
-# ruboto_import_widgets imports the UI widgets needed
-# by the activities in this script. ListView and Button 
-# come in automatically because those classes get extended.
-#
-
-ruboto_import_widgets :LinearLayout, :EditText, :TextView
-
-#
-# $activity is the Activity that launched the 
-# script engine. The start_ruboto_activity
-# method creates a new RubotoActivity to work with.
-# After launch, the new activity can be accessed 
-# through the $ruboto_demo (in this case) global.
-# You man not need the global, because the block
-# to start_ruboto_activity is executed in the 
-# context of the new activity as it initializes. 
-#
-$activity.start_ruboto_activity "$ruboto_demo" do
-  #
-  # setup_content uses methods created through
-  # ruboto_import_widgets to build a UI. All
-  # code is executed in the context of the 
-  # activity.
-  #
-  #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-  @cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
-  
-  setup_content do
-    linear_layout(:orientation => LinearLayout::VERTICAL) do
-      linear_layout do
-        @et = edit_text
-        button :text => "Play", :width => :wrap_content
-      end
-      @tv = text_view :text => ""
-    end
-  end
-
-   #@tv.append "#{cards}"
-   
-  #
-  # Another callback method for OnClick. Buttons
-  # automatically get the activity as a handler.
-  #
-  handle_click do |view|
-    case view.getText
-      when "dummy"
-      else
-        my_click(view.getText)
-    end
-  end
-
-  #
-  # Extra singleton methods for this activity
-  # need to be declared with self. This one 
-  # handles some of the button and menu clicks.
-  # 
-  def self.my_click(card)
-    card = @et.getText
-    toast "#{@cards.size}"
-    @cards.delete("#{card}")
-    toast card
-    toast "#{@cards.size}"
-    #@tv.append "\n#{text}"
-    my_cards =""
-    @cards.each do |c|
-      my_cards += "[#{c}]"
-    end
-    @tv.setText "\n#{my_cards}"
-    #@tv.setText "\n#{text}"
-  end
-  
-  def napo
-    print "test"
-    p "TEST"
-  end
-  
-end
-
-#######################################################
-#
-# demo-ruboto.rb (by Scott Moyer)
-# 
+ 
 # A simple look at how to generate and 
 # use a RubotoActivity.
 #
@@ -159,7 +68,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # handles some of the button and menu clicks.
   # 
   def self.my_click(text)
-    $android_screen = ""
+    $android_out = ""
     input_card = @et.getText
     card = "#{input_card}"
     #toast "#{@cards.size}"
@@ -172,17 +81,35 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     @cards.each do |c|
       my_cards += "[#{c}]"
     end
-    #@tv.setText "\n#{my_cards}"
-    #print "\n#{my_cards}"
-    napo
-    
+    naporu
   end
   
   def napo
     print_s "test"
     p_s "TEST"
-    draw
   end
+  
+  def naporu
+    human_player_count = 0
+    player_count = 4
+    ans = 'n'
+    while(ans != 'n')
+      t = Table.new(human_player_count, player_count)
+      t.shuffle
+      t.first_deal
+      t.real_declaration
+      t.election
+      t.assign_lieut
+      t.players.each do |p|
+        p.exchange(t) if p.role == 'napoleon'
+        t.winner_id = p.id if p.role == 'napoleon'
+      end
+      catch(:game_over) do
+        t.play
+      end
+    end  
+  end 
+  
 end
   
 ### Extentions for Napo ###
@@ -190,553 +117,17 @@ end
 module Kernel
   ##
   def print_s(text)
-    $android_screen << "#{text}"
+    $android_out << "#{text}"
   end
   
   def p_s(text)
-    $android_screen << "#{text}\n"
+    $android_out << "#{text}\n"
   end
   
   def draw
-    @tv.setText "#{$android_screen}"
+    @tv.setText "#{$android_out}\n"
   end
   
-end
-  
-class String
-  # Defining class Card has more overheads so that choose extending String class
-  def suit
-    self.slice(0,1)
-  end
-  
-  def reverse
-    case self
-    when 's'
-      'c'
-    when 'h'
-      'd'
-    when 'd'
-      'h'
-    when 'c'
-      's'
-    else
-      'o'
-    end
-  end
-  
-  def order
-    case self
-    when 's'
-      4
-    when 'h'
-      3
-    when 'd'
-      2
-    when 'c'
-      1
-    else
-      0
-    end
-  end
-  
-  def number
-    self.slice(1,1)
-  end
-  
-  def value
-    case self.number
-    when 'A'
-      if self.suit == 's'
-        50
-      else
-        15
-      end
-    when 'K'
-      14
-    when 'Q'
-      if self.suit == 'h'
-        13
-      else
-        12
-      end
-    when 'J'
-      11 
-    when '0'
-      10
-    when 'o'
-      11
-    when '#'
-      0
-    else
-      self.number.to_i
-    end
-  end
-  
-  def normalize
-    if self == 'jo'
-      'Jo'
-    elsif self == 'Jo'
-      'Jo'
-    else
-      self.suit + self.slice(1,1).upcase
-    end
-  end
-  
-  def pict?
-    if self.value >= 10 && self != 'Jo'
-      true
-    elsif self.value < 10 || self == 'Jo'
-      false
-    end
-  end
-  
-  def two? 
-    self.number == '2' 
-  end
- 
-  def joker? 
-    self == 'Jo' 
-  end
- 
-  def yoro? 
-    self == 'hQ'
-  end
- 
-  def mighty? 
-    self == 'sA'
-  end
- 
-  # Defining class Target has more overheads so that choose extending String class
-  def target
-    self.slice(1,2).to_i
-  end
-  
-  def plus_1
-    dec_target = self.target + 1
-    self.suit + dec_target.to_s
-  end
-  
-  def plus_2
-    dec_target = self.target + 2
-    self.suit + dec_target.to_s
-  end
-  
-end
-
-class Array
-   
-  def max_value_card
-    card_values = []
-    max_value_cards = []
-    this_card = ''
-    self.each do |card|
-      card_values << card.value
-    end
-    card_max_value = card_values.max
-    self.each do |card|
-      if card.value == card_max_value
-        max_value_cards << card
-      end
-    end
-    this_card = max_value_cards.sort!.reverse!.first 
-    return this_card
-  end
- 
-  def min_value_card
-    card_values = []
-    min_value_cards = []
-    this_card = ''
-    self.each do |card|
-      card_values << card.value
-    end
-    card_min_value = card_values.min
-    self.each do |card|
-      if card.value == card_min_value
-        min_value_cards << card
-      end
-    end
-    this_card = min_value_cards.sort!.reverse!.first 
-    return this_card
-  end
- 
-  def obverse_cards(table_obverse)
-    o_cards = []
-    self.each do |card|
-      o_cards << card if card.suit == table_obverse
-    end
-    return o_cards
-  end
- 
-  def not_obverse_cards(table_obverse)
-    not_o_cards = []
-    self.each do |card|
-      not_o_cards << card if card.suit != table_obverse
-    end
-    return not_o_cards
-  end
-  
-  def minnows(table_obverse)
-    ms = []
-    self.each do |card|
-      if card.mighty?
-      elsif card.yoro?
-      elsif card == "#{table_obverse}J"
-      elsif card == "#{table_obverse.reverse}J"
-      elsif card.two?
-      elsif card.suit == table_obverse
-      else
-        ms << card
-      end
-    end
-    ms.sort!.reverse!
-    return ms
-  end
- 
-  def except_two_and_joker
-    cards = []
-    self.each do |card|
-      if card.number == '2'
-      elsif card == 'Jo'
-      else
-        cards << card
-      end
-    end
-    cards.sort!.reverse!
-    return cards
-  end
- 
-  def pict_cards
-    p_cards = []
-    self.each do |card|
-      p_cards << card if card.pict?
-    end
-    return p_cards
-  end
- 
-  def suit_cards(target_suit)
-    s_cards = []
-    self.each do |card|
-      s_cards << card if card.suit == target_suit
-    end
-    return s_cards
-  end
- 
-  def number_cards(target_number)
-    n_cards = []
-    self.each do |card|
-      n_cards << card if card.number == target_number
-    end
-    return n_cards
-  end
- 
-  def has_mighty?
-    if self.find {|card| card == 'sA' }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_obverse_jack?(table_obverse)
-    if self.find {|card| card == "#{table_obverse}J" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_reverse_jack?(table_obverse)
-    if self.find {|card| card == "#{table_obverse.reverse}J" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_obverse?(table_obverse)
-    if self.find {|card| card.suit == "#{table_obverse}" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_not_obverse?(table_obverse)
-    if self.find {|card| card.suit != "#{table_obverse}" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_first_suit?(first_suit)
-    if self.find {|card| card.suit == "#{first_suit}" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_suit?(suit)
-    if self.find {|card| card.suit == "#{suit}" }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_yoro?
-    if self.find {|card| card == 'hQ' }
-      true
-    else
-      false
-    end
-  end
- 
-  def has_two?
-    if self.find {|card| card.number == '2'}
-      true
-    else
-      false
-    end
-  end
- 
-  def has_joker?
-    if self.find {|card| card == 'Jo'}
-      true
-    else
-      false
-    end
-  end
-  
-  def has_pict?
-    if self.find {|card| card.pict? == true }
-      true
-    else
-      false
-    end
-  end
- 
-  def full_open?
-    if self.find {|card| card == '#' }
-      false
-    else
-      true
-    end
-  end
- 
-  def has?(target_card)
-    if self.find {|card| card == target_card }
-      true
-    else
-      false
-    end
-  end
-  
-  def except(target_card)
-    e_cards = []
-    self.each do |card|
-      e_cards << card unless card == target_card
-    end
-    return e_cards
-  end
-  
-end
-
-#######################################################
-#
-# demo-ruboto.rb (by Scott Moyer)
-# 
-# A simple look at how to generate and 
-# use a RubotoActivity.
-#
-#######################################################
-
-require "ruboto.rb"
-confirm_ruboto_version(4)
-
-#
-# ruboto_import_widgets imports the UI widgets needed
-# by the activities in this script. ListView and Button 
-# come in automatically because those classes get extended.
-#
-
-ruboto_import_widgets :LinearLayout, :EditText, :TextView
-
-#
-# $activity is the Activity that launched the 
-# script engine. The start_ruboto_activity
-# method creates a new RubotoActivity to work with.
-# After launch, the new activity can be accessed 
-# through the $ruboto_demo (in this case) global.
-# You man not need the global, because the block
-# to start_ruboto_activity is executed in the 
-# context of the new activity as it initializes. 
-#
-$activity.start_ruboto_activity "$ruboto_demo" do
-  #
-  # setup_content uses methods created through
-  # ruboto_import_widgets to build a UI. All
-  # code is executed in the context of the 
-  # activity.
-  #
-  #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-  @cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
-  
-  setup_content do
-    linear_layout(:orientation => LinearLayout::VERTICAL) do
-      linear_layout do
-        @et = edit_text
-        button :text => "Play", :width => :wrap_content
-      end
-      @tv = text_view :text => ""
-    end
-  end
-
-   #@tv.append "#{cards}"
-   
-  #
-  # Another callback method for OnClick. Buttons
-  # automatically get the activity as a handler.
-  #
-  handle_click do |view|
-    case view.getText
-      when "dummy"
-      else
-        my_click(view.getText)
-    end
-  end
-
-  #
-  # Extra singleton methods for this activity
-  # need to be declared with self. This one 
-  # handles some of the button and menu clicks.
-  # 
-  def self.my_click(card)
-    card = @et.getText
-    toast "#{@cards.size}"
-    @cards.delete("#{card}")
-    toast card
-    toast "#{@cards.size}"
-    #@tv.append "\n#{text}"
-    my_cards =""
-    @cards.each do |c|
-      my_cards += "[#{c}]"
-    end
-    @tv.setText "\n#{my_cards}"
-    #@tv.setText "\n#{text}"
-  end
-  
-  def napo
-    print "test"
-    p "TEST"
-  end
-  
-end
-
-#######################################################
-#
-# demo-ruboto.rb (by Scott Moyer)
-# 
-# A simple look at how to generate and 
-# use a RubotoActivity.
-#
-#######################################################
-
-require "ruboto.rb"
-confirm_ruboto_version(4)
-
-#
-# ruboto_import_widgets imports the UI widgets needed
-# by the activities in this script. ListView and Button 
-# come in automatically because those classes get extended.
-#
-
-ruboto_import_widgets :LinearLayout, :EditText, :TextView
-
-#
-# $activity is the Activity that launched the 
-# script engine. The start_ruboto_activity
-# method creates a new RubotoActivity to work with.
-# After launch, the new activity can be accessed 
-# through the $ruboto_demo (in this case) global.
-# You man not need the global, because the block
-# to start_ruboto_activity is executed in the 
-# context of the new activity as it initializes. 
-#
-$activity.start_ruboto_activity "$ruboto_demo" do
-  #
-  # setup_content uses methods created through
-  # ruboto_import_widgets to build a UI. All
-  # code is executed in the context of the 
-  # activity.
-  #
-  #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
-  @cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
-  
-  setup_content do
-    linear_layout(:orientation => LinearLayout::VERTICAL) do
-      linear_layout do
-        @et = edit_text
-        button :text => "Play", :width => :wrap_content
-      end
-      @tv = text_view :text => ""
-    end
-  end
-
-   #@tv.append "#{cards}"
-   
-  #
-  # Another callback method for OnClick. Buttons
-  # automatically get the activity as a handler.
-  #
-  handle_click do |view|
-    case view.getText
-      when "dummy"
-      else
-        my_click(view.getText)
-    end
-  end
-
-  #
-  # Extra singleton methods for this activity
-  # need to be declared with self. This one 
-  # handles some of the button and menu clicks.
-  # 
-  def self.my_click(text)
-    input_card = @et.getText
-    card = "#{input_card}"
-    toast "#{@cards.size}"
-    card = card.suit + card.number.upcase
-    @cards.delete("#{card}")
-    toast card
-    toast "#{@cards.size}"
-    #@tv.append "\n#{text}"
-    my_cards =""
-    @cards.each do |c|
-      my_cards += "[#{c}]"
-    end
-    #@tv.setText "\n#{my_cards}"
-    print "\n#{my_cards}"
-  end
-  
-  def napo
-    print "test"
-    p "TEST"
-  end
-end
-  
-### Extentions for Napo ###
-
-module Kernel
-  ##
-  def print(text)
-    @tv.setText "#{text}"
-  end
-  
-  def p(text)
-    @tv.setText "#{text}\n"
-  end
 end
   
 class String
@@ -1191,17 +582,17 @@ class Table
       @players.each do |p|
         p.declare(self)
         dec_target = []
-        print "#{p.id}: #{p.declaration}\n"
+        print_s "#{p.id}: #{p.declaration}\n"
       end
-      print "\n"
+      print_s "\n"
       #if @declarations.size == 1
         #@target = @declarations.first.target
         ans = ''
         while (ans != 'n')
           @players.each do |p|
-            print "#{p.id}: #{p.declaration} "
+            print_s "#{p.id}: #{p.declaration} "
           end
-          print "\n"
+          print_s "\n"
           @players.each do |p|
             ans = p.confirm(self.declarations) if p.brain == 'human'
           end
@@ -1373,13 +764,13 @@ class Table
     1.upto last_turn do |turn_id|
       @turn_id = turn_id
       
-      print "| Turn: #{@turn_id} | "
-      print "Obverse: Spade | " if @obverse == 's'
-      print "Obverse: Heart | " if @obverse == 'h'
-      print "Obverse: Diamonds | " if @obverse == 'd'
-      print "Obverse: Club | " if @obverse == 'c'
-      print "Target: #{@target} | "
-      print "Lieut: #{@lieut} |\n\n"
+      print_s "| Turn: #{@turn_id} | "
+      print_s "Obverse: Spade | " if @obverse == 's'
+      print_s "Obverse: Heart | " if @obverse == 'h'
+      print_s "Obverse: Diamonds | " if @obverse == 'd'
+      print_s "Obverse: Club | " if @obverse == 'c'
+      print_s "Target: #{@target} | "
+      print_s "Lieut: #{@lieut} |\n\n"
       
       1.upto @players.size do |i|
         p_index = @winner_id + i - 2
@@ -1389,45 +780,36 @@ class Table
         self.makes_facedown_cards
         this_card = @players[p_index].play(self)
         @faceup_cards[this_card] = p_index + 1
-        print "#{p_index + 1}: "
+        print_s "#{p_index + 1}: "
         
         if this_card == '' || this_card == nil
-          p @players[p_index].cards
-        #elsif this_card == @lieut
-          #if this_card.suit == @first_suit
-            #print "#{this_card}"
-          #elsif this_card.suit == @first_suit
-            #print "# "
-          #end
+          p_s @players[p_index].cards
         elsif this_card.suit == @first_suit || i == 1 
-          print "#{this_card}"
+          print_s "#{this_card}"
         elsif this_card == 'Jo'
-          print "#{this_card}"
+          print_s "#{this_card}"
         elsif @first_card == 'Jo'
           if this_card.suit == @obverse
-            print "#{this_card}"
+            print_s "#{this_card}"
           elsif this_card.suit != @obverse
-            print "# "
+            print_s "# "
           end
         elsif this_card.suit != @first_suit
-          print "# "
+          print_s "# "
         else
-          p @faceup_cards
+          p_s @faceup_cards
         end
-      
-#       print ' '                    # Debugging code
-#       print @players[p_index].role # Debugging code
 
-        print ' ('
+        print_s ' ('
         if @players[p_index].role == 'napoleon'
-          print 'Napoleon'
+          print_s 'Napoleon'
         elsif @players[p_index].id == @lieut_id
-          print 'Lieut'
+          print_s 'Lieut'
         elsif @players[p_index].id != @lieut_id
-          print 'Coalition'
+          print_s 'Coalition'
         end
-        print ')'
-        print "\n"
+        print_s ')'
+        print_s "\n"
         
         if i == 1
           @first_card = this_card
@@ -1435,34 +817,35 @@ class Table
         end
       end
       
-      print "\n"
+      print_s "\n"
       1.upto @players.size do |i|
         p_index = @winner_id + i - 2
         p_index = p_index - @players.size if p_index > @players.size - 1
-        print "#{p_index + 1}: #{faceup_cards.index(p_index + 1)} "
+        print_s "#{p_index + 1}: #{faceup_cards.index(p_index + 1)} "
         # Hash#index obsolute in 1.9.0
       end
-      print "\n"
+      print_s "\n"
            
       self.judge
       @faceup_cards.clear
       @facedown_cards.clear
-      print "\n"
+      print_s "\n"
+      draw
     end
     
     if napo_win?
-      p 'Napoleon Wins!!'
+      p_s 'Napoleon Wins!!'
     elsif !napo_win? && @coals_picts.size == 0
-      p 'Coalition Wins!!!'
-      p 'Napoleon Gotten All picts!!'
+      p_s 'Coalition Wins!!!'
+      p_s 'Napoleon Gotten All picts!!'
     elsif !napo_win?
-      p 'Coalition Wins!!!'
+      p_s 'Coalition Wins!!!'
     end
     
-    print "\n"
+    print_s "\n"
     
     @players.each do |p|
-      print "#{p.role}: #{p.gotten_picts.size}\n"
+      print_s "#{p.role}: #{p.gotten_picts.size}\n"
     end
     
   end
@@ -1482,35 +865,35 @@ class Table
       if @faceup_cards.keys.has_yoro?
         win_card = 'hQ'
         @winner_id = @faceup_cards[win_card]
-        p 'Yoromeki hit!!'
+        p_s 'Yoromeki hit!!'
 #p "#Case 1"
       elsif !@faceup_cards.keys.has_yoro?
         win_card = 'sA'
         @winner_id = @faceup_cards[win_card]
-        p 'Here\'s Mighty!'
+        p_s 'Here\'s Mighty!'
 #p "#Case 2"
       end
     elsif @faceup_cards.keys.has_obverse_jack?(@obverse)
       win_card = "#{@obverse}J"
       @winner_id = @faceup_cards[win_card]
-        p 'Here\'s Obverse Jack!'
+        p_s 'Here\'s Obverse Jack!'
 #p "#Case 3"
     elsif @faceup_cards.keys.has_reverse_jack?(@obverse)
       win_card = "#{@obverse.reverse}J"
       @winner_id = @faceup_cards[win_card]
-        p 'Here\'s Reverse Jack!'
+        p_s 'Here\'s Reverse Jack!'
 #p "#Case 4"
     elsif @first_card == 'Jo'
       if @turn_id != 1
         win_card = 'Jo'
         @winner_id = @faceup_cards[win_card]
-        p 'Here\'s Joker!'
+        p_s 'Here\'s Joker!'
 #p "#Case 5"
       elsif @turn_id == 1
         win_card = 
           @faceup_cards.keys.suit_cards(@obverse).max_value_card
         @winner_id = @faceup_cards[win_card]
-        p 'Joker can\'t win at the first turn.'
+        p_s  'Joker can\'t win at the first turn.'
 #p "#Case 10"
       end
     elsif @faceup_cards.keys.suit_cards(@first_suit).size == @players.size
@@ -1518,13 +901,13 @@ class Table
         if @turn_id != 1
           win_card = "#{@first_suit}2"
           @winner_id = @faceup_cards[win_card]
-          p "Here\'s #{@first_suit}2!!"
+          p_s "Here\'s #{@first_suit}2!!"
 #p "#Case 6"
         elsif @turn_id == 1
         win_card = 
           @faceup_cards.keys.suit_cards(@first_suit).max_value_card
           @winner_id = @faceup_cards[win_card]
-          p "#{first_suit}2 can\'t win at the first turn."
+          p_s "#{first_suit}2 can\'t win at the first turn."
 #p "#Case 11"
         end
       elsif !@faceup_cards.keys.has_two?
@@ -1566,10 +949,10 @@ class Table
     @players[@winner_id-1].gotten_picts.sort!.reverse!
     @all_gotten_picts.sort!.reverse!
     if napo_lose?
-      p 'Napoleon lose!'
-      print "\n"
+      p_s 'Napoleon lose!'
+      print_s "\n"
       @players.each do |p|
-        print "#{p.role}: #{p.gotten_picts.size}\n"
+        print_s "#{p.role}: #{p.gotten_picts.size}\n"
       end
       throw(:game_over)
     end    
@@ -1632,13 +1015,13 @@ class HumanPlayer < Player
     tds = t.declarations
     declaration = ''
     @cards.sort!.reverse!.each do |c|
-      print "[#{c}]"
+      print_s "[#{c}]"
     end
     
     ans = ''
     catch(:last) do
     while(ans != 'n')
-      print "\nDeclare?[y/n]\n"
+      print_s "\nDeclare?[y/n]\n"
       ans = STDIN.gets.chomp!
       ans.downcase!
       case ans
@@ -1667,13 +1050,13 @@ class HumanPlayer < Player
         end
         
         while (declaration == '')
-          print "Which suit?/How many?\n"
+          print_s "Which suit?/How many?\n"
           declaration_candidates = Hash.new
           suit_targets.keys.sort.reverse.each do |s|
-            print "[#{s}#{suit_targets[s]}] "
+            print_s "[#{s}#{suit_targets[s]}] "
             declaration_candidates[s] = suit_targets[s]
           end
-          print "?\n"
+          print_s "?\n"
           
           declaration = STDIN.gets.chomp! 
           
@@ -1698,8 +1081,6 @@ class HumanPlayer < Player
       else
         redo
       end
-      #print "Player #{@id}: #{@declaration}\n"
-      #print "#{table_declarations}\n"
     end
     end
   end
@@ -1707,7 +1088,7 @@ class HumanPlayer < Player
   def confirm(table_declarations)
     ans = ''
     loop do 
-      print "\nOK?[y/n]\n"
+      print_s "\nOK?[y/n]\n"
       ans = STDIN.gets.chomp!
       ans.downcase!
       break if ans == 'y' || ans == 'n'
@@ -1720,17 +1101,17 @@ class HumanPlayer < Player
     dt = Table.new(0,4)
     dt.shuffle
     to = table_obverse
-    print "Obverse: Spade\n" if to == 's'
-    print "Obverse: Heart\n" if to == 'h'
-    print "Obverse: Diamonds\n" if to == 'd'
-    print "Obverse: Club\n" if to == 'c'
+    print_s "Obverse: Spade\n" if to == 's'
+    print_s "Obverse: Heart\n" if to == 'h'
+    print_s "Obverse: Diamonds\n" if to == 'd'
+    print_s "Obverse: Club\n" if to == 'c'
     @cards.sort!.reverse!.each do |c|
-      print "[#{c}]"
+      print_s "[#{c}]"
     end
     
     lieut = ''
     while (!dt.all_cards.include?(lieut))
-      print "\nWhich card is the best for the lieut?\n"
+      print_s "\nWhich card is the best for the lieut?\n"
       lieut = STDIN.gets.chomp!
       if lieut != ''
         lieut = lieut.normalize
@@ -1746,28 +1127,28 @@ class HumanPlayer < Player
     ans = 'y'
     catch(:last) do 
       while(ans != 'n')
-        print "Obverse: Spade\n" if t.obverse == 's'
-        print "Obverse: Heart\n" if t.obverse == 'h'
-        print "Obverse: Diamonds\n" if t.obverse == 'd'
-        print "Obverse: Club\n" if t.obverse == 'c'
-        print "\nYour cards:\n"
+        print_s "Obverse: Spade\n" if t.obverse == 's'
+        print_s "Obverse: Heart\n" if t.obverse == 'h'
+        print_s "Obverse: Diamonds\n" if t.obverse == 'd'
+        print_s "Obverse: Club\n" if t.obverse == 'c'
+        print_s "\nYour cards:\n"
         @cards.sort!.reverse!.each do |c|
-          print "[#{c}]"
+          print_s "[#{c}]"
         end
-        print "\nTable mount cards:\n"
+        print_s "\nTable mount cards:\n"
         table.mount_cards.sort!.reverse!.each do |c|
-          print "[#{c}]"
+          print_s "[#{c}]"
         end
-        print "\nExchange?[y/n]\n"
+        print_s "\nExchange?[y/n]\n"
         ans = STDIN.gets.chomp!
         ans.downcase!
         case ans
         when 'y'
-          print "Which card from the mount cards?\n"
+          print_s "Which card from the mount cards?\n"
           table.mount_cards.sort!.reverse!.each do |c|
-            print "[#{c}]"
+            print_s "[#{c}]"
           end
-          print "\n"
+          print_s "\n"
           card1 = STDIN.gets.chomp!
           if card1 != ''
             card1 = card1.normalize
@@ -1776,11 +1157,11 @@ class HumanPlayer < Player
           end
           
           if table.mount_cards.include?(card1)
-            print "Which card from your cards?\n"
+            print_s "Which card from your cards?\n"
             @cards.sort!.reverse!.each do |c|
-            print "[#{c}]"
+            print_s "[#{c}]"
           end
-          print "\n"
+          print_s "\n"
             card2 = STDIN.gets.chomp!
             if card2 != ''
               card2 = card2.normalize
@@ -1806,21 +1187,21 @@ class HumanPlayer < Player
  
   def play(table)
     this_card = ''
-    print "------------------------------------------------\n"
+    print_s "------------------------------------------------\n"
     while(this_card == '')
       if @role == 'napoleon'
-        print 'Your cards (Napoleon):'
+        print_s 'Your cards (Napoleon):'
       elsif @cards.has?(table.lieut)
-        print 'Your cards (Lieut):' 
+        print_s 'Your cards (Lieut):' 
         @role = 'lieut'
       elsif @role == 'coalition'
-        print 'Your cards (Coalition):' 
+        print_s 'Your cards (Coalition):' 
       end
-      print "\n"
+      print_s "\n"
       @cards.sort!.reverse!.each do |c|
-       print "[#{c}]"
+       print_s "[#{c}]"
       end
-      print "\nWhich card from your cards?\n"
+      print_s "\nWhich card from your cards?\n"
       raw_card = STDIN.gets.chomp!
       
       card = raw_card.suit.downcase + raw_card.number.downcase
@@ -1835,7 +1216,7 @@ class HumanPlayer < Player
       if @cards.include?(card)
         @cards.delete(card)
         this_card = card
-        print "------------------------------------------------\n"
+        print_s "------------------------------------------------\n"
       else
       end
     end
@@ -2087,9 +1468,6 @@ class CPUPlayer < Player
     
     table.declarations[self.id] = self.declaration
     
-    #print "#{table_declarations}\n"
-    #print "Player " + "#{@id}: #{@declaration}\n"
-    #table_declarations << @declaration if @declaration != ""
   end
   
   def confirm(table_declarations)
@@ -3136,7 +2514,6 @@ class CoalCPU < CPUPlayer
   end
   
   def lp_fo_wo_tf_seeing_pict(table)
-# p 'def lp_fo_wo_tf_seeing_pict(table)'
     this_card = ''
     t = table
     to = table.obverse
@@ -3221,25 +2598,4 @@ class CoalCPU < CPUPlayer
     return this_card
   end
   
-end
-
-def naporu
-  human_player_count = 0
-  player_count = 4
-  ans = 'n'
-  while(ans != 'n')
-    t = Table.new(human_player_count, player_count)
-    t.shuffle
-    t.first_deal
-    t.real_declaration
-    t.election
-    t.assign_lieut
-    t.players.each do |p|
-      p.exchange(t) if p.role == 'napoleon'
-      t.winner_id = p.id if p.role == 'napoleon'
-    end
-    catch(:game_over) do
-      t.play
-    end
-  end  
 end
