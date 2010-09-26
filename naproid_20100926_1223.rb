@@ -704,25 +704,28 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # handles some of the button and menu clicks.
   # 
   def self.my_click(text)
+    $android_out = ""
     input_card = @et.getText
     card = "#{input_card}"
-    toast "#{@cards.size}"
+    #toast "#{@cards.size}"
     card = card.suit + card.number.upcase
     @cards.delete("#{card}")
-    toast card
-    toast "#{@cards.size}"
+    #toast card
+    #toast "#{@cards.size}"
     #@tv.append "\n#{text}"
     my_cards =""
     @cards.each do |c|
       my_cards += "[#{c}]"
     end
     #@tv.setText "\n#{my_cards}"
-    print "\n#{my_cards}"
+    #print "\n#{my_cards}"
+    napo
+    draw
   end
   
   def napo
-    print "test"
-    p "TEST"
+    print_s "test"
+    p_s "TEST"
   end
 end
   
@@ -730,13 +733,18 @@ end
 
 module Kernel
   ##
-  def print(text)
-    @tv.setText "#{text}"
+  def print_s(text)
+    $android_out << "#{text}"
   end
   
-  def p(text)
-    @tv.setText "#{text}\n"
+  def p_s(text)
+    $android_out << "#{text}\n"
   end
+  
+  def draw
+    @tv.setText "#{$android_out}\n"
+  end
+  
 end
   
 class String
