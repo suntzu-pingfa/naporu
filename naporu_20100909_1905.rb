@@ -94,7 +94,12 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     player_count = 4
     t = Table.new(human_player_count, player_count)
     t.shuffle
-    pp t
+    toast t.all_cards.size
+    
+   
+    
+    
+    
     draw
   end
   
