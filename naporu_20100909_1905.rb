@@ -135,13 +135,13 @@ module Kernel
   def print_a(text)
     # print append
     $android_out << "#{text}"
-    draw
+    append
   end
   
   def p_a(text)
     # p append
     $android_out << "#{text}\n"
-    draw
+    append
   end
   
   def print_r(text)
@@ -154,6 +154,10 @@ module Kernel
     # p refresh
     $android_out = "#{text}\n"
     draw
+  end
+  
+  def append
+    @tv.append "#{$android_out}\n"
   end
   
   def draw
