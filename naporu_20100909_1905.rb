@@ -98,11 +98,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     t.shuffle
     
     p_r "Turn #{@turn}"
+    cls
     4.times do |p_i|
       if p_i == 0
-        cls
         print_a "Player "
-        p_a "#{p_i}: [#{card}]"
+        p_a "#{p_i}: [#{p_i}]"
       elsif p_i == 1
         print_a "Player "
         p_a "#{p_i}: [#{card}]"
