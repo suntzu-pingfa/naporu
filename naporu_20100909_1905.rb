@@ -88,17 +88,20 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   end
   
   def napo
-    print_s "test"
-    p_s "TEST"
+    print_a "test"
+    p_r "TEST"
     human_player_count = 0
     player_count = 4
     t = Table.new(human_player_count, player_count)
     t.shuffle
     
     5.times do |i|
-      p_s i
-      draw
+      p_a i
     end
+    5.times do |i|
+      p_r i
+    end
+    
   end
   
   def naporu
@@ -128,12 +131,29 @@ end
 
 module Kernel
   ##
-  def print_s(text)
+  
+  def print_a(text)
+    # print append
     $android_out << "#{text}"
+    draw
   end
   
-  def p_s(text)
+  def p_a(text)
+    # p append
     $android_out << "#{text}\n"
+    draw
+  end
+  
+  def print_r(text)
+    # print refresh
+    $android_out = "#{text}"
+    draw
+  end
+  
+  def p_r(text)
+    # p refresh
+    $android_out = "#{text}\n"
+    draw
   end
   
   def draw
