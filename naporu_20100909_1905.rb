@@ -99,11 +99,16 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     
     p_r "Turn #{@turn}"
     4.times do |p_i|
-      print "Player "
-      p_a "[#{p_i}]"
-      if p_i == 2
-        print "Player "
+      if p_i == 0
+        cls
+        print_a "Player "
         p_a "#{p_i}: [#{card}]"
+      elsif p_i == 1
+        print_a "Player "
+        p_a "#{p_i}: [#{card}]"
+      else
+        print_a "Player "
+        p_a "[#{p_i}]"
       end
     end
     
@@ -167,6 +172,10 @@ module Kernel
   
   def draw
     @tv.setText "#{$android_out}\n"
+  end
+  
+  def cls
+    $anroid_out = ""
   end
   
 end
