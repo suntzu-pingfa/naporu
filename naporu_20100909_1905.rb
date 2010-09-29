@@ -95,11 +95,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     t = Table.new(human_player_count, player_count)
     t.shuffle
     
-    5.times do |i|
-      p_a i
-    end
-    5.times do |i|
-      p_r i
+    12.times do |i|
+      p_r "Turn #{i}"
+      4.times do |p_i|
+        print_a "[#{p_i}]"
+      end
     end
     
   end
