@@ -94,13 +94,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     player_count = 4
     t = Table.new(human_player_count, player_count)
     t.shuffle
-    toast t.all_cards.size
     
-   
-    
-    
-    
-    draw
+    5.times do |i|
+      p_s i
+      draw
+    end
   end
   
   def naporu
