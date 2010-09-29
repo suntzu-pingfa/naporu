@@ -175,7 +175,7 @@ module Kernel
   end
   
   def cls
-    $anroid_out = ""
+    $android_out = ""
   end
   
 end
