@@ -83,11 +83,11 @@ $activity.start_ruboto_activity "$ruboto_demo" do
       my_cards += "[#{c}]"
     end
     #naporu
-    napo
+    napo(card)
     toast "End"
   end
   
-  def napo
+  def napo(card)
     print_a "test"
     p_r "TEST"
     human_player_count = 0
@@ -96,9 +96,12 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     t.shuffle
     
     12.times do |i|
-      p_r "Turn #{i}"
+      p_a "Turn #{i}"
       4.times do |p_i|
         print_a "[#{p_i}]"
+        if p_i == 2
+          print_a "[#{p_i}: #{card}]"
+        end
       end
     end
     
