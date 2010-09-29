@@ -38,6 +38,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   #
   #cards = "[sK][sJ][s9][s8][h8][dA][d4][d2][c8][c6][c5][c0]"
   @cards = %w[sK sJ s9 s8 h8 dA d4 d2 c8 c6 c5 c0]
+  @turn = 0
   
   setup_content do
     linear_layout(:orientation => LinearLayout::VERTICAL) do
@@ -70,6 +71,7 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   # 
   def self.my_click(text)
     $android_out = ""
+    @turn = @turn + 1
     input_card = @et.getText
     card = "#{input_card}"
     #toast "#{@cards.size}"
@@ -95,13 +97,13 @@ $activity.start_ruboto_activity "$ruboto_demo" do
     t = Table.new(human_player_count, player_count)
     t.shuffle
     
-    12.times do |i|
-      p_a "Turn #{i}"
-      4.times do |p_i|
-        print_a "[#{p_i}]"
-        if p_i == 2
-          print_a "[#{p_i}: #{card}]"
-        end
+    p_r "Turn #{@turn}"
+    4.times do |p_i|
+      print "Player "
+      p_a "[#{p_i}]"
+      if p_i == 2
+        print "Player "
+        p_a "#{p_i}: [#{card}]"
       end
     end
     
