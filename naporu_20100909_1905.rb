@@ -90,27 +90,22 @@ $activity.start_ruboto_activity "$ruboto_demo" do
   end
   
   def napo(card)
-    print_a "test"
-    p_r "TEST"
     human_player_count = 0
     player_count = 4
     t = Table.new(human_player_count, player_count)
     t.shuffle
     
-    p_r "Turn #{@turn}"
     cls
+    p_r "Turn #{@turn}"
     4.times do |p_i|
-      if p_i == 0
-        print_a "Player "
-        p_a "#{p_i}: [#{p_i}]"
-      elsif p_i == 1
-        print_a "Player "
+      print_a "Player "
+      if p_i == 1
         p_a "#{p_i}: [#{card}]"
       else
-        print_a "Player "
-        p_a "[#{p_i}]"
+        p_a "#{p_i}: [cpu_card #{p_i}]"
       end
     end
+    append
     
   end
   
@@ -145,25 +140,21 @@ module Kernel
   def print_a(text)
     # print append
     $android_out << "#{text}"
-    append
   end
   
   def p_a(text)
     # p append
     $android_out << "#{text}\n"
-    append
   end
   
   def print_r(text)
     # print refresh
     $android_out = "#{text}"
-    draw
   end
   
   def p_r(text)
     # p refresh
     $android_out = "#{text}\n"
-    draw
   end
   
   def append
